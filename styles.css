@@ -146,3 +146,88 @@ h1{font-size:48px;line-height:1.08;margin:0;font-weight:700;letter-spacing:-.7px
   .variant-top{flex-direction:column;gap:5px}.variant-materials{grid-template-columns:1fr}
   .footer__contacts{flex-direction:column;align-items:flex-start;gap:10px}.dialog-actions{flex-direction:column}
 }
+
+/* Reference-parity pass: keep the elegant serif rhythm and scale of the original AVS mockup. */
+html,body,button,input,select,option{font-family:Georgia,Cambria,'Times New Roman',serif;font-synthesis:none;font-kerning:normal;font-feature-settings:'kern' 1,'liga' 1}
+body{font-size:15.5px;line-height:1.55;letter-spacing:-.01em}
+.wrap{width:min(1480px,calc(100% - 88px))}
+.topbar{height:76px}
+.brand{gap:14px;min-width:380px}
+.brand__logo{width:96px;height:38px}
+.brand__text strong{font-size:16px;line-height:1.05}
+.brand__text small{font-size:13px;margin-top:5px}
+.nav{font-size:13px;gap:38px}
+.hero{padding-top:52px;padding-bottom:50px}
+.hero__head{grid-template-columns:minmax(0,1.85fr) minmax(360px,.8fr);gap:80px;margin-bottom:36px}
+.eyebrow{font-size:14px;letter-spacing:2.2px;margin-bottom:11px}
+h1{font-size:clamp(52px,3.6vw,64px);line-height:1.04;letter-spacing:-1.2px}
+.hero__lead{font-size:15px;line-height:1.7;max-width:440px;margin-bottom:8px}
+.calculator{grid-template-columns:minmax(0,2.08fr) minmax(390px,.92fr);border-radius:30px}
+.calculator__form{padding:44px 42px 40px}
+.calc-inputs{grid-template-columns:205px 205px 1fr;gap:20px}
+.field>span:first-child{font-size:14px;margin-bottom:9px}
+.input-shell{height:58px;border-radius:18px;padding:0 17px}
+.input-shell input{font-size:15px}.input-shell b{font-size:13px}
+.calc-note{font-size:13px;line-height:1.65;margin-bottom:10px}
+.area-cards{gap:14px;margin:22px 0 38px}
+.area-card{min-height:116px;border-radius:21px;padding:18px 20px}
+.area-card>span{font-size:13px}.area-card strong{font-size:28px;margin-top:7px}.area-card small{font-size:11px;margin-top:7px}
+.finish-block h2,.materials-block h2{font-size:22px;margin-bottom:15px}
+.finish-tabs{gap:12px}
+.finish-tab{min-height:91px;border-radius:21px;padding:18px}
+.finish-tab strong{font-size:17px}.finish-tab span{font-size:13px;margin-top:4px}
+.materials-block{margin-top:36px}.materials-head>span{font-size:12px}
+.material-grid{gap:16px 18px;margin-top:15px}
+.material-card{grid-template-columns:86px minmax(0,1fr);gap:16px;min-height:126px;border-radius:24px;padding:12px 14px}
+.material-card img{width:86px;height:86px;border-radius:18px;image-rendering:auto}
+.material-card__content strong{font-size:14px;margin-bottom:7px}
+.material-card select{height:40px;border-radius:18px;font-size:13px;padding-left:14px}
+.material-meta{font-size:12px;margin-top:7px}
+.result-card{min-height:760px}
+.result-card__content{padding:48px 42px}
+.result-badges span{font-size:12px;padding:10px 15px}.result-badges small{font-size:11px}
+.result-package{font-size:15px}.result-price{font-size:50px}.result-formula{font-size:16px}.result-note{font-size:13px}
+.cta{font-size:15px;padding:16px 18px;border-radius:18px}
+.variants{padding-top:64px;padding-bottom:66px}
+.variants__head{gap:90px;margin-bottom:30px}
+.variants__head h2{font-size:42px;letter-spacing:-.5px}
+.variants__head>p{font-size:15px;max-width:570px}
+.variant-tabs{height:36px;border-radius:22px}
+.variant-tab{font-size:15px;border-radius:21px}
+.variant-panel{grid-template-columns:1.34fr 1fr;border-radius:30px}
+.variant-photo{height:570px}
+.variant-copy{padding:42px 44px}
+.variant-top span{font-size:13px}.variant-top h3{font-size:36px;margin-top:5px}.variant-top>strong{font-size:24px}
+.variant-copy>p{font-size:15px;line-height:1.7;margin:22px 0}
+.palette{gap:10px;margin:7px 0 24px}.palette i{width:40px;height:40px}
+.variant-materials{gap:0 20px}
+.variant-material{grid-template-columns:52px minmax(0,1fr);gap:12px;padding:13px 0}
+.variant-material img{width:52px;height:52px;border-radius:14px}
+.variant-material span{font-size:10.5px}.variant-material strong{font-size:13px;line-height:1.3}
+.variant-cta{font-size:14px;padding:14px 22px;border-radius:15px;margin-top:22px}
+.footer{padding:38px 0}.footer strong{font-size:22px}.footer span{font-size:13px}.footer__contacts{font-size:12px}
+
+@media(max-width:1320px){
+  .wrap{width:min(1210px,calc(100% - 56px))}
+  .topbar{height:62px}.brand__logo{width:84px;height:32px}.brand__text strong{font-size:14px}.brand__text small{font-size:12px}.nav{font-size:12px;gap:28px}
+  h1{font-size:52px}.hero__head{gap:54px}.calculator{grid-template-columns:minmax(0,820px) minmax(320px,390px)}
+  .calculator__form{padding:36px}.calc-inputs{grid-template-columns:180px 180px 1fr}.material-card{grid-template-columns:74px minmax(0,1fr);min-height:108px}.material-card img{width:74px;height:74px}
+  .result-card{min-height:660px}.variant-photo{height:470px}.variant-copy{padding:34px 36px}.variant-top h3{font-size:30px}.variants__head h2{font-size:36px}
+}
+@media(max-width:1020px){
+  .wrap{width:min(100% - 36px,900px)}
+  .topbar{height:auto;min-height:60px}.topbar__inner{padding:10px 0}.brand{min-width:auto}.brand__text{display:none}.nav{gap:18px}
+  .hero{padding-top:38px}.hero__head{grid-template-columns:1fr;gap:18px}.hero__lead{max-width:650px}
+  .calculator{grid-template-columns:1fr}.result-card{min-height:440px}
+  .calc-inputs{grid-template-columns:1fr 1fr}.calc-note{grid-column:1/-1}
+  .variant-panel{grid-template-columns:1fr}.variant-photo{height:420px}.variant-copy{padding:32px}
+}
+@media(max-width:720px){
+  body{font-size:15px}.wrap{width:min(100% - 28px,680px)}
+  .nav a:nth-child(1),.nav a:nth-child(2){display:none}.nav{gap:14px;font-size:12px}.brand__logo{width:76px}
+  h1{font-size:38px;line-height:1.08}.desktop{display:none}.eyebrow{font-size:12px}
+  .calculator__form{padding:24px 18px}.calc-inputs{grid-template-columns:1fr}.area-cards,.material-grid{grid-template-columns:1fr}.finish-tabs{grid-template-columns:1fr 1fr}
+  .material-card{grid-template-columns:76px minmax(0,1fr);min-height:106px}.material-card img{width:76px;height:76px}
+  .result-card__content{padding:28px 22px}.result-price{font-size:38px}.result-card{min-height:420px}
+  .variants__head{grid-template-columns:1fr;gap:12px}.variants__head h2{font-size:32px}.variant-photo{height:300px}.variant-copy{padding:26px 20px}.variant-top{flex-direction:column;gap:5px}.variant-materials{grid-template-columns:1fr}
+}
