@@ -7,7 +7,13 @@ const PACKAGE_IMAGE_PARTS = {
     'assets/package-standard.5.b64'
   ],
   comfort: [
-    'assets/package-comfort.1.b64',
+    'assets/package-comfort.1a.b64',
+    'assets/package-comfort.1b.b64',
+    'assets/package-comfort.1c.b64',
+    'assets/package-comfort.1d.b64',
+    'assets/package-comfort.1e.b64',
+    'assets/package-comfort.1f.b64',
+    'assets/package-comfort.1g.b64',
     'assets/package-comfort.2.b64',
     'assets/package-comfort.3.b64',
     'assets/package-comfort.4.b64'
@@ -34,7 +40,7 @@ async function loadPackageImage(key) {
   if (!files) throw new Error('Unknown package: ' + key);
 
   const parts = await Promise.all(files.map(async path => {
-    const response = await fetch(path + '?v=12');
+    const response = await fetch(path + '?v=13');
     if (!response.ok) throw new Error('Failed to load ' + path);
     return (await response.text()).trim();
   }));
