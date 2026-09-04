@@ -1,4 +1,5 @@
-const ASSET_VER='v9';
+const ASSET_VER='v10';
+const ROOM_IMAGES={standard:'assets/room-standard.webp?v10',comfort:'assets/room-comfort.webp?v10',plus:'assets/room-comfortplus.webp?v10'};
 const tiers={standard:13000,comfort:18000,plus:25000};
 const labels={standard:'СТАНДАРТ',comfort:'КОМФОРТ',plus:'КОМФОРТ+',custom:'СВОЙ ПАКЕТ'};
 
@@ -41,7 +42,7 @@ const titles={wall:'Обои',floor:'Ламинат',tile:'Керамогран�
 
 function findMaterial(kind,id){return materials[kind].find(x=>x.id===id)}
 function asset(path){return path+'?'+ASSET_VER}
-function roomFor(pkg){return window.AVS_ROOMS&&window.AVS_ROOMS[pkg]?window.AVS_ROOMS[pkg]:''}
+function roomFor(pkg){return ROOM_IMAGES[pkg]||''}
 
 function setupSelect(kind){
   const select=$(kind+'Select');
