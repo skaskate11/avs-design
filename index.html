@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AVS — студия дизайна и ремонта | Краснодар</title>
+  <meta name="description" content="Ремонт квартир в Краснодаре с понятной ценой за м². Калькулятор стоимости, варианты отделки и материалы Лемана ПРО." />
+  <meta name="theme-color" content="#1d211c" />
+  <meta property="og:title" content="AVS — студия дизайна и ремонта" />
+  <meta property="og:description" content="Ремонт квартиры с понятной ценой за м² в Краснодаре." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://avs-design.ru/" />
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner wrap">
+      <a class="brand" href="#top" aria-label="AVS — студия дизайна и ремонта">
+        <img class="brand__logo" src="assets/logo.png" alt="AVS" />
+        <span class="brand__text"><strong>Студия дизайна и ремонта</strong><small>Краснодар</small></span>
+      </a>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#variants">Варианты ремонта</a>
+        <a href="#materials">Материалы</a>
+        <a href="tel:+79528554447">8 952 855-44-47</a>
+        <a class="nav__max" href="https://max.ru/" target="_blank" rel="noopener">MAX</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="wrap">
+        <div class="hero__head">
+          <div>
+            <p class="eyebrow">ПРЕДВАРИТЕЛЬНЫЙ РАСЧЁТ</p>
+            <h1>Ремонт квартиры с понятной<br class="desktop" /> ценой за м²</h1>
+          </div>
+          <p class="hero__lead">Выберите уровень отделки и материалы. Калькулятор сразу покажет ориентировочную стоимость работ с материалами.</p>
+        </div>
+
+        <div class="calculator" id="calculator">
+          <div class="calculator__form">
+            <div class="calc-inputs">
+              <label class="field">
+                <span>Площадь квартиры</span>
+                <span class="input-shell"><input id="area" inputmode="decimal" type="number" min="10" max="500" step="1" value="52" /><b>м²</b></span>
+              </label>
+              <label class="field">
+                <span>Высота потолков</span>
+                <span class="input-shell"><input id="height" inputmode="decimal" type="number" min="2" max="5" step="0.1" value="2.7" /><b>м</b></span>
+              </label>
+              <p class="calc-note">В цену входят стены, ламинат, водопровод, электрика, натяжные потолки, двери и керамогранит в санузле.</p>
+            </div>
+
+            <div class="area-cards">
+              <div class="area-card"><span>Площадь пола</span><strong><span id="floorArea">52</span> м²</strong></div>
+              <div class="area-card"><span>Ориентировочная площадь стен</span><strong><span id="wallArea">140,4</span> м²</strong><small>Приближённый расчёт без учёта планировки, окон и дверей</small></div>
+            </div>
+
+            <div class="finish-block">
+              <h2>Уровень отделки</h2>
+              <div class="finish-tabs" id="finishTabs">
+                <button class="finish-tab active" data-package="standard"><strong>Стандарт</strong><span>13 000 ₽/м²</span><i>✓</i></button>
+                <button class="finish-tab" data-package="comfort"><strong>Комфорт</strong><span>18 000 ₽/м²</span><i>✓</i></button>
+                <button class="finish-tab" data-package="plus"><strong>Комфорт+</strong><span>25 000 ₽/м²</span><i>✓</i></button>
+                <button class="finish-tab" data-package="custom"><strong>Собрать свой пакет</strong><span>Смешать материалы</span><i>✓</i></button>
+              </div>
+            </div>
+
+            <div class="materials-block" id="materials">
+              <div class="materials-head"><h2>Материалы</h2><span>Можно сочетать варианты разных пакетов</span></div>
+              <div class="material-grid">
+                <article class="material-card" data-kind="wall">
+                  <img id="wallThumb" src="assets/wall-standard.png" alt="Обои" />
+                  <div class="material-card__content">
+                    <strong>Обои</strong>
+                    <select id="wallSelect" aria-label="Выбрать обои"></select>
+                    <div class="material-meta"><span id="wallPrice"></span><a id="wallLink" target="_blank" rel="noopener">В Лемана ПРО ↗</a></div>
+                  </div>
+                </article>
+                <article class="material-card" data-kind="floor">
+                  <img id="floorThumb" src="assets/floor-standard.png" alt="Ламинат" />
+                  <div class="material-card__content">
+                    <strong>Ламинат</strong>
+                    <select id="floorSelect" aria-label="Выбрать ламинат"></select>
+                    <div class="material-meta"><span id="floorPrice"></span><a id="floorLink" target="_blank" rel="noopener">В Лемана ПРО ↗</a></div>
+                  </div>
+                </article>
+                <article class="material-card" data-kind="tile">
+                  <img id="tileThumb" src="assets/tile-standard.png" alt="Керамогранит" />
+                  <div class="material-card__content">
+                    <strong>Керамогранит</strong>
+                    <select id="tileSelect" aria-label="Выбрать керамогранит"></select>
+                    <div class="material-meta"><span id="tilePrice"></span><a id="tileLink" target="_blank" rel="noopener">В Лемана ПРО ↗</a></div>
+                  </div>
+                </article>
+                <article class="material-card" data-kind="door">
+                  <img id="doorThumb" src="assets/door-standard.png" alt="Межкомнатная дверь" />
+                  <div class="material-card__content">
+                    <strong>Межкомнатная дверь</strong>
+                    <select id="doorSelect" aria-label="Выбрать межкомнатную дверь"></select>
+                    <div class="material-meta"><span id="doorPrice"></span><a id="doorLink" target="_blank" rel="noopener">В Лемана ПРО ↗</a></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <aside class="result-card">
+            <div class="result-card__shade"></div>
+            <div class="result-card__content">
+              <div class="result-badges"><span>▣ &nbsp; Расчёт</span><small>с материалами</small></div>
+              <div class="result-bottom">
+                <p class="result-package" id="resultPackage">СТАНДАРТ</p>
+                <div class="result-price" id="resultPrice">676 000 ₽</div>
+                <p class="result-formula"><span id="resultRate">13 000</span> ₽/м² × <span id="resultArea">52</span> м²</p>
+                <hr />
+                <p class="result-note">Предварительная стоимость. Точную смету подготовим после замера и согласования комплектации.</p>
+                <button class="cta" id="exactCalc">Получить точный расчёт</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="variants section" id="variants">
+      <div class="wrap">
+        <div class="variants__head">
+          <div><p class="eyebrow">ВИЗУАЛЬНЫЕ КОНЦЕПЦИИ</p><h2>Варианты ремонта</h2></div>
+          <p>Три направления из каталога AVS. Материалы показывают характер пакета, а точную комплектацию фиксируем в смете.</p>
+        </div>
+        <div class="variant-tabs" role="tablist">
+          <button class="variant-tab active" data-variant="standard">Стандарт</button>
+          <button class="variant-tab" data-variant="comfort">Комфорт</button>
+          <button class="variant-tab" data-variant="plus">Комфорт+</button>
+        </div>
+        <div class="variant-panel">
+          <div class="variant-photo"><img id="variantImage" src="assets/standard-room.webp" alt="Интерьер пакета Стандарт" /></div>
+          <div class="variant-copy">
+            <div class="variant-top"><div><span>ПАКЕТ</span><h3 id="variantTitle">Стандарт</h3></div><strong id="variantRate">13 000 ₽/м²</strong></div>
+            <p id="variantDescription">Светлая практичная отделка с нейтральными фактурами. Подходит для спокойного современного интерьера и рационального бюджета.</p>
+            <div class="palette" id="variantPalette" aria-hidden="true"></div>
+            <div class="variant-materials" id="variantMaterials"></div>
+            <button class="variant-cta" id="variantCalc">Рассчитать этот вариант</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div><strong>AVS — студия дизайна и ремонта</strong><span>Краснодар. Замер, комплектация, смета и договор.</span></div>
+      <div class="footer__contacts">
+        <a href="tel:+79528554447">☎ &nbsp;8 952 855-44-47</a>
+        <a href="https://max.ru/" target="_blank" rel="noopener">◯ &nbsp;Мессенджер MAX</a>
+        <a href="mailto:vito.ant@yandex.ru">✉ &nbsp;vito.ant@yandex.ru</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog id="contactDialog" class="contact-dialog">
+    <button class="dialog-close" id="dialogClose" aria-label="Закрыть">×</button>
+    <p class="eyebrow">ТОЧНЫЙ РАСЧЁТ</p>
+    <h3>Передайте параметры — подготовим смету</h3>
+    <p id="dialogSummary"></p>
+    <div class="dialog-actions">
+      <a id="callLink" href="tel:+79528554447">Позвонить</a>
+      <a id="mailLink" href="mailto:vito.ant@yandex.ru">Написать на e-mail</a>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
