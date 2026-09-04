@@ -73,7 +73,7 @@
               <div class="materials-head"><h2>Материалы</h2><span>Можно сочетать варианты разных пакетов</span></div>
               <div class="material-grid">
                 <article class="material-card" data-kind="wall">
-                  <img id="wallThumb" src="assets/wall-standard.png" alt="Обои" />
+                  <img id="wallThumb" src="assets/wall-standard.webp?v8" alt="Обои" />
                   <div class="material-card__content">
                     <strong>Обои</strong>
                     <select id="wallSelect" aria-label="Выбрать обои"></select>
@@ -81,7 +81,7 @@
                   </div>
                 </article>
                 <article class="material-card" data-kind="floor">
-                  <img id="floorThumb" src="assets/floor-standard.png" alt="Ламинат" />
+                  <img id="floorThumb" src="assets/floor-standard.webp?v8" alt="Ламинат" />
                   <div class="material-card__content">
                     <strong>Ламинат</strong>
                     <select id="floorSelect" aria-label="Выбрать ламинат"></select>
@@ -89,7 +89,7 @@
                   </div>
                 </article>
                 <article class="material-card" data-kind="tile">
-                  <img id="tileThumb" src="assets/tile-standard.png" alt="Керамогранит" />
+                  <img id="tileThumb" src="assets/tile-standard.webp?v8" alt="Керамогранит" />
                   <div class="material-card__content">
                     <strong>Керамогранит</strong>
                     <select id="tileSelect" aria-label="Выбрать керамогранит"></select>
@@ -97,7 +97,7 @@
                   </div>
                 </article>
                 <article class="material-card" data-kind="door">
-                  <img id="doorThumb" src="assets/door-standard.png" alt="Межкомнатная дверь" />
+                  <img id="doorThumb" src="assets/door-standard.webp?v8" alt="Межкомнатная дверь" />
                   <div class="material-card__content">
                     <strong>Межкомнатная дверь</strong>
                     <select id="doorSelect" aria-label="Выбрать межкомнатную дверь"></select>
@@ -138,7 +138,7 @@
           <button class="variant-tab" data-variant="plus">Комфорт+</button>
         </div>
         <div class="variant-panel">
-          <div class="variant-photo"><img id="variantImage" src="assets/standard-room.webp" alt="Интерьер пакета Стандарт" /></div>
+          <div class="variant-photo"><img id="variantImage" alt="Интерьер пакета Стандарт" /></div>
           <div class="variant-copy">
             <div class="variant-top"><div><span>ПАКЕТ</span><h3 id="variantTitle">Стандарт</h3></div><strong id="variantRate">13 000 ₽/м²</strong></div>
             <p id="variantDescription">Светлая практичная отделка с нейтральными фактурами. Подходит для спокойного современного интерьера и рационального бюджета.</p>
@@ -173,6 +173,9 @@
     </div>
   </dialog>
 
+  <script src="room-standard.js"></script>
+  <script src="room-comfort.js"></script>
+  <script src="room-plus.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
