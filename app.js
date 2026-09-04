@@ -3,24 +3,24 @@ const labels = { standard: 'СТАНДАРТ', comfort: 'КОМФОРТ', plus: 
 
 const materials = {
   wall: [
-    {id:'wall-standard', tier:'standard', name:'Simple Rovno, бежевые', price:'Ориентир: 890 ₽/рул.', link:'https://krasnodar.lemanapro.ru/product/oboi-flizelinovye-simple-rovno-bezhevye-106-m-sp31233-21a-89411624/', thumb:'assets/wall-standard.png'},
-    {id:'wall-comfort', tier:'comfort', name:'Erismann Samui, светло-бежевые', price:'Ориентир: 1 850 ₽/рул.', link:'https://krasnodar.lemanapro.ru/product/oboi-flizelinovye-erismann-samui-svetlo-bezhevye-106-m-er60868-03-89405520/', thumb:'assets/wall-comfort.png'},
-    {id:'wall-plus', tier:'plus', name:'Victoria Stenova Одиссей', price:'Ориентир: 2 490 ₽/рул.', link:'https://krasnodar.lemanapro.ru/product/oboi-flizelinovye-victoria-stenova-odissey-serye-106-m-vs287577-89374621/', thumb:'assets/wall-plus.png'}
+    {id:'wall-standard', tier:'standard', name:'Simple Rovno, бежевые', price:'Ориентир: 890 ₽/рул.', link:'https://krasnodar.lemanapro.ru/product/oboi-flizelinovye-simple-rovno-bezhevye-106-m-sp31233-21a-89411624/', thumb:'assets/wall-standard.webp'},
+    {id:'wall-comfort', tier:'comfort', name:'Erismann Samui, светло-бежевые', price:'Ориентир: 1 850 ₽/рул.', link:'https://krasnodar.lemanapro.ru/product/oboi-flizelinovye-erismann-samui-svetlo-bezhevye-106-m-er60868-03-89405520/', thumb:'assets/wall-comfort.webp'},
+    {id:'wall-plus', tier:'plus', name:'Victoria Stenova Одиссей', price:'Ориентир: 2 490 ₽/рул.', link:'https://krasnodar.lemanapro.ru/product/oboi-flizelinovye-victoria-stenova-odissey-serye-106-m-vs287577-89374621/', thumb:'assets/wall-plus.webp'}
   ],
   floor: [
-    {id:'floor-standard', tier:'standard', name:'KREAFORTA Лоо, 33 кл.', price:'Ориентир: 688 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=KREAFORTA%20%D0%9B%D0%BE%D0%BE%2033%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81', thumb:'assets/floor-standard.png'},
-    {id:'floor-comfort', tier:'comfort', name:'Травертин Латте, 33 кл.', price:'Ориентир: 1 070 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=%D0%A2%D1%80%D0%B0%D0%B2%D0%B5%D1%80%D1%82%D0%B8%D0%BD%20%D0%9B%D0%B0%D1%82%D1%82%D0%B5%2033%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81', thumb:'assets/floor-comfort.png'},
-    {id:'floor-plus', tier:'plus', name:'Дуб Катунь, влагостойкий', price:'Ориентир: 1 398 ₽/м²', link:'https://krasnodar.lemanapro.ru/product/laminat-dub-katun-vodostoykost-24-chasa-33-klass-tolshchina-8-mm-s-faskoy-1596-m-84868455/', thumb:'assets/floor-plus.png'}
+    {id:'floor-standard', tier:'standard', name:'KREAFORTA Лоо, 33 кл.', price:'Ориентир: 688 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=KREAFORTA%20%D0%9B%D0%BE%D0%BE%2033%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81', thumb:'assets/floor-standard.webp'},
+    {id:'floor-comfort', tier:'comfort', name:'Травертин Латте, 33 кл.', price:'Ориентир: 1 070 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=%D0%A2%D1%80%D0%B0%D0%B2%D0%B5%D1%80%D1%82%D0%B8%D0%BD%20%D0%9B%D0%B0%D1%82%D1%82%D0%B5%2033%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81', thumb:'assets/floor-comfort.webp'},
+    {id:'floor-plus', tier:'plus', name:'Дуб Катунь, влагостойкий', price:'Ориентир: 1 398 ₽/м²', link:'https://krasnodar.lemanapro.ru/product/laminat-dub-katun-vodostoykost-24-chasa-33-klass-tolshchina-8-mm-s-faskoy-1596-m-84868455/', thumb:'assets/floor-plus.webp'}
   ],
   tile: [
-    {id:'tile-standard', tier:'standard', name:'Gracia Ceramica Флейм', price:'Ориентир: 1 226 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=Gracia%20Ceramica%20%D0%A4%D0%BB%D0%B5%D0%B9%D0%BC%2060x60', thumb:'assets/tile-standard.png'},
-    {id:'tile-comfort', tier:'comfort', name:'Arcadia Desert Crema', price:'Ориентир: 2 167 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=Arcadia%20Desert%20Crema%2060x60', thumb:'assets/tile-comfort.png'},
-    {id:'tile-plus', tier:'plus', name:'Novin Ceram Blestone', price:'Ориентир: 3 200 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=Novin%20Ceram%20Blestone%2060x60', thumb:'assets/tile-plus.png'}
+    {id:'tile-standard', tier:'standard', name:'Gracia Ceramica Флейм', price:'Ориентир: 1 226 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=Gracia%20Ceramica%20%D0%A4%D0%BB%D0%B5%D0%B9%D0%BC%2060x60', thumb:'assets/tile-standard.webp'},
+    {id:'tile-comfort', tier:'comfort', name:'Arcadia Desert Crema', price:'Ориентир: 2 167 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=Arcadia%20Desert%20Crema%2060x60', thumb:'assets/tile-comfort.webp'},
+    {id:'tile-plus', tier:'plus', name:'Novin Ceram Blestone', price:'Ориентир: 3 200 ₽/м²', link:'https://krasnodar.lemanapro.ru/search/?q=Novin%20Ceram%20Blestone%2060x60', thumb:'assets/tile-plus.webp'}
   ],
   door: [
-    {id:'door-standard', tier:'standard', name:'Белая глухая, 80×200', price:'Ориентир: 2 596 ₽/шт.', link:'https://krasnodar.lemanapro.ru/search/?q=%D0%B4%D0%B2%D0%B5%D1%80%D1%8C%20%D0%BC%D0%B5%D0%B6%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BD%D0%B0%D1%8F%20%D0%B3%D0%BB%D1%83%D1%85%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%BB%D0%B0%D1%8F%2080x200', thumb:'assets/door-standard.png'},
-    {id:'door-comfort', tier:'comfort', name:'Борно 56, ПЭТ', price:'Ориентир: 7 780 ₽/шт.', link:'https://krasnodar.lemanapro.ru/search/?q=%D0%91%D0%BE%D1%80%D0%BD%D0%BE%2056%2080x200%20%D0%9F%D0%AD%D0%A2%20%D0%B1%D0%B5%D0%BB%D0%B0%D1%8F', thumb:'assets/door-comfort.png'},
-    {id:'door-plus', tier:'plus', name:'Австралия, белая эмаль', price:'Ориентир: 9 954 ₽/шт.', link:'https://krasnodar.lemanapro.ru/search/?q=%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2080x200%20%D1%8D%D0%BC%D0%B0%D0%BB%D1%8C%20%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9', thumb:'assets/door-plus.png'}
+    {id:'door-standard', tier:'standard', name:'Белая глухая, 80×200', price:'Ориентир: 2 596 ₽/шт.', link:'https://krasnodar.lemanapro.ru/search/?q=%D0%B4%D0%B2%D0%B5%D1%80%D1%8C%20%D0%BC%D0%B5%D0%B6%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BD%D0%B0%D1%8F%20%D0%B3%D0%BB%D1%83%D1%85%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%BB%D0%B0%D1%8F%2080x200', thumb:'assets/door-standard.webp'},
+    {id:'door-comfort', tier:'comfort', name:'Борно 56, ПЭТ', price:'Ориентир: 7 780 ₽/шт.', link:'https://krasnodar.lemanapro.ru/search/?q=%D0%91%D0%BE%D1%80%D0%BD%D0%BE%2056%2080x200%20%D0%9F%D0%AD%D0%A2%20%D0%B1%D0%B5%D0%BB%D0%B0%D1%8F', thumb:'assets/door-comfort.webp'},
+    {id:'door-plus', tier:'plus', name:'Австралия, белая эмаль', price:'Ориентир: 9 954 ₽/шт.', link:'https://krasnodar.lemanapro.ru/search/?q=%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2080x200%20%D1%8D%D0%BC%D0%B0%D0%BB%D1%8C%20%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9', thumb:'assets/door-plus.webp'}
   ]
 };
 
