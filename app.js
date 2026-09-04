@@ -1,4 +1,4 @@
-const ASSET_VER='v7';
+const ASSET_VER='v9';
 const tiers={standard:13000,comfort:18000,plus:25000};
 const labels={standard:'СТАНДАРТ',comfort:'КОМФОРТ',plus:'КОМФОРТ+',custom:'СВОЙ ПАКЕТ'};
 
@@ -65,9 +65,19 @@ function renderMaterial(kind){
   const item=findMaterial(kind,selections[kind]);
   const img=$(kind+'Thumb');
   $(kind+'Select').value=item.id;
-  img.onerror=null;
-  img.src=asset(item.thumb);
-  img.alt=`${titles[kind]} — ${item.name}`;
+  const nextSrc=asset(item.thumb);
+  img.classList.add('is-switching');
+  const preload=new Image();
+  preload.onload=()=>{
+    img.src=nextSrc;
+    img.alt=`${titles[kind]} — ${item.name}`;
+    img.classList.remove('is-switching');
+  };
+  preload.onerror=()=>{
+    img.src=nextSrc;
+    img.classList.remove('is-switching');
+  };
+  preload.src=nextSrc;
   $(kind+'Price').textContent=item.price;
   $(kind+'Link').href=item.link;
 }
