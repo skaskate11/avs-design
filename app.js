@@ -31,19 +31,44 @@ const variants = {
 };
 
 let selectedPackage='standard';
+let selectedVariant='standard';
 const selections={wall:'wall-standard',floor:'floor-standard',tile:'tile-standard',door:'door-standard'};
 const $=id=>document.getElementById(id);
 const fmt=n=>Math.round(n).toLocaleString('ru-RU');
 const fmt1=n=>Number(n).toLocaleString('ru-RU',{maximumFractionDigits:1});
 function findMaterial(kind,id){return materials[kind].find(x=>x.id===id)}
+
+function thumbFallback(kind,tier){
+  const colors={
+    wall:{standard:['#eee9df','#f8f5ef'],comfort:['#e8e4dc','#f4f1eb'],plus:['#ded8cc','#f4f0e8']},
+    floor:{standard:['#614630','#b2825b'],comfort:['#cfc2b3','#ebe2d6'],plus:['#d6d3cd','#f2efea']},
+    tile:{standard:['#b8b4aa','#ded8cf'],comfort:['#aaa497','#d5cec0'],plus:['#8d8980','#c4bdb2']},
+    door:{standard:['#f8f8f6','#dcdedc'],comfort:['#eeeae3','#c7b9a8'],plus:['#f8f7f3','#e0d8cd']}
+  };
+  const [a,b]=colors[kind][tier];
+  const label={wall:'ОБОИ',floor:'ЛАМИНАТ',tile:'ПЛИТКА',door:'ДВЕРЬ'}[kind];
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="140" height="140" rx="24" fill="url(#g)"/><text x="70" y="76" text-anchor="middle" font-family="Georgia" font-size="13" fill="#6f6252">${label}</text></svg>`;
+  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+}
+function bindFallback(img,kind,tier){img.onerror=()=>{img.onerror=null;img.src=thumbFallback(kind,tier)}}
+
 function setupSelect(kind){const select=$(kind+'Select');materials[kind].forEach(item=>{const o=document.createElement('option');o.value=item.id;o.textContent=`${item.name} · ${item.price.replace('Ориентир: ','')}`;select.appendChild(o)});select.addEventListener('change',()=>{selections[kind]=select.value;selectedPackage='custom';syncPackageTabs();renderMaterial(kind);updateCalc();});}
-function renderMaterial(kind){const item=findMaterial(kind,selections[kind]);$(kind+'Select').value=item.id;$(kind+'Thumb').src=item.thumb;$(kind+'Price').textContent=item.price;$(kind+'Link').href=item.link;}
+function renderMaterial(kind){const item=findMaterial(kind,selections[kind]);const img=$(kind+'Thumb');$(kind+'Select').value=item.id;bindFallback(img,kind,item.tier);img.src=item.thumb;$(kind+'Price').textContent=item.price;$(kind+'Link').href=item.link;}
 function setPackage(pkg){selectedPackage=pkg;if(pkg!=='custom') Object.keys(materials).forEach(kind=>{const item=materials[kind].find(x=>x.tier===pkg);selections[kind]=item.id;renderMaterial(kind)});syncPackageTabs();updateCalc();}
 function syncPackageTabs(){document.querySelectorAll('.finish-tab').forEach(b=>b.classList.toggle('active',b.dataset.package===selectedPackage))}
 function customRate(){const avg=Object.keys(selections).reduce((sum,kind)=>sum+tiers[findMaterial(kind,selections[kind]).tier],0)/4;return Math.round(avg/500)*500;}
-function updateCalc(){const area=Math.max(1,parseFloat($('area').value)||0);const height=Math.max(1,parseFloat($('height').value)||0);$('floorArea').textContent=fmt1(area);$('wallArea').textContent=fmt1(area*height);const rate=selectedPackage==='custom'?customRate():tiers[selectedPackage];$('resultPackage').textContent=labels[selectedPackage];$('resultRate').textContent=fmt(rate);$('resultArea').textContent=fmt1(area);$('resultPrice').textContent=fmt(area*rate)+' ₽';const bgPkg=selectedPackage==='custom'?'standard':selectedPackage;document.querySelector('.result-card').style.backgroundImage=`url('${variants[bgPkg].image}')`;}
-function renderVariant(key){const v=variants[key];$('variantImage').src=v.image;$('variantImage').alt='Интерьер пакета '+v.title;$('variantTitle').textContent=v.title;$('variantRate').textContent=v.rate;$('variantDescription').textContent=v.desc;$('variantPalette').innerHTML=v.palette.map(c=>`<i style="background:${c}"></i>`).join('');$('variantMaterials').innerHTML=Object.keys(materials).map(kind=>{const m=materials[kind].find(x=>x.tier===v.package);const title={wall:'Обои',floor:'Ламинат',tile:'Керамогранит',door:'Межкомнатная дверь'}[kind];return `<div class="variant-material"><img src="${m.thumb}" alt=""><div><span>${title}</span><strong>${m.name}</strong></div></div>`}).join('');$('variantCalc').dataset.package=v.package;document.querySelectorAll('.variant-tab').forEach(b=>b.classList.toggle('active',b.dataset.variant===key));}
+function roomFor(pkg){return (window.AVS_ROOMS&&window.AVS_ROOMS[pkg])||variants[pkg].image}
+function updateCalc(){const area=Math.max(1,parseFloat($('area').value)||0);const height=Math.max(1,parseFloat($('height').value)||0);$('floorArea').textContent=fmt1(area);$('wallArea').textContent=fmt1(area*height);const rate=selectedPackage==='custom'?customRate():tiers[selectedPackage];$('resultPackage').textContent=labels[selectedPackage];$('resultRate').textContent=fmt(rate);$('resultArea').textContent=fmt1(area);$('resultPrice').textContent=fmt(area*rate)+' ₽';const bgPkg=selectedPackage==='custom'?'standard':selectedPackage;document.querySelector('.result-card').style.backgroundImage=`linear-gradient(rgba(23,27,22,.74),rgba(23,27,22,.88)),url("${roomFor(bgPkg)}")`;}
+function renderVariant(key){selectedVariant=key;const v=variants[key];const img=$('variantImage');img.onerror=()=>{img.onerror=null;img.removeAttribute('src');img.alt='';img.parentElement.classList.add('variant-photo--fallback')};img.parentElement.classList.remove('variant-photo--fallback');img.src=roomFor(key);img.alt='Интерьер пакета '+v.title;$('variantTitle').textContent=v.title;$('variantRate').textContent=v.rate;$('variantDescription').textContent=v.desc;$('variantPalette').innerHTML=v.palette.map(c=>`<i style="background:${c}"></i>`).join('');$('variantMaterials').innerHTML=Object.keys(materials).map(kind=>{const m=materials[kind].find(x=>x.tier===v.package);const title={wall:'Обои',floor:'Ламинат',tile:'Керамогранит',door:'Межкомнатная дверь'}[kind];return `<div class="variant-material"><img src="${m.thumb}" data-kind="${kind}" data-tier="${m.tier}" alt=""><div><span>${title}</span><strong>${m.name}</strong></div></div>`}).join('');document.querySelectorAll('.variant-material img').forEach(el=>bindFallback(el,el.dataset.kind,el.dataset.tier));$('variantCalc').dataset.package=v.package;document.querySelectorAll('.variant-tab').forEach(b=>b.classList.toggle('active',b.dataset.variant===key));}
+
+function loadEmbeddedRooms(){
+  const files={standard:'room-standard.js',comfort:'room-comfort.js',plus:'room-plus.js'};
+  Object.entries(files).forEach(([key,src])=>{
+    const s=document.createElement('script');s.src=src;s.async=true;s.onload=()=>{if(key===selectedVariant)renderVariant(key);updateCalc()};document.head.appendChild(s);
+  });
+}
+
 Object.keys(materials).forEach(kind=>{setupSelect(kind);renderMaterial(kind)});document.querySelectorAll('.finish-tab').forEach(b=>b.addEventListener('click',()=>setPackage(b.dataset.package)));$('area').addEventListener('input',updateCalc);$('height').addEventListener('input',updateCalc);document.querySelectorAll('.variant-tab').forEach(b=>b.addEventListener('click',()=>renderVariant(b.dataset.variant)));$('variantCalc').addEventListener('click',()=>{setPackage($('variantCalc').dataset.package);$('calculator').scrollIntoView({behavior:'smooth',block:'start'})});
 function openContact(){const area=parseFloat($('area').value)||0;const rate=selectedPackage==='custom'?customRate():tiers[selectedPackage];const summary=`${labels[selectedPackage]} · ${fmt1(area)} м² · ориентировочно ${fmt(area*rate)} ₽. Материалы: ${Object.keys(selections).map(k=>findMaterial(k,selections[k]).name).join(', ')}.`;$('dialogSummary').textContent=summary;$('mailLink').href='mailto:vito.ant@yandex.ru?subject='+encodeURIComponent('Расчёт ремонта AVS')+'&body='+encodeURIComponent(summary+'\n\nХочу получить точную смету.');$('contactDialog').showModal();}
 $('exactCalc').addEventListener('click',openContact);$('dialogClose').addEventListener('click',()=>$('contactDialog').close());$('contactDialog').addEventListener('click',e=>{if(e.target===$('contactDialog')) $('contactDialog').close()});
-renderVariant('standard');updateCalc();
+renderVariant('standard');updateCalc();loadEmbeddedRooms();
