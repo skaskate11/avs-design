@@ -1,28 +1,7 @@
-const PACKAGE_IMAGE_PARTS = {
-  standard: [
-    'assets/package-standard.1.b64',
-    'assets/package-standard.2.b64',
-    'assets/package-standard.3.b64',
-    'assets/package-standard.4.b64',
-    'assets/package-standard.5.b64'
-  ],
-  comfort: [
-    'assets/package-comfort.1a.b64',
-    'assets/package-comfort.1b.b64',
-    'assets/package-comfort.1c.b64',
-    'assets/package-comfort.1d.b64',
-    'assets/package-comfort.1e.b64',
-    'assets/package-comfort.1f.b64',
-    'assets/package-comfort.1g.b64',
-    'assets/package-comfort.2.b64',
-    'assets/package-comfort.3.b64',
-    'assets/package-comfort.4.b64'
-  ],
-  plus: [
-    'assets/package-plus.1.b64',
-    'assets/package-plus.2.b64',
-    'assets/package-plus.3.b64'
-  ]
+const PACKAGE_IMAGES = {
+  standard: 'assets/package-standard.webp?v=16',
+  comfort: 'assets/package-comfort.webp?v=16',
+  plus: 'assets/package-plus.webp?v=16'
 };
 
 const PACKAGE_NAMES = {
@@ -36,24 +15,22 @@ let packagePreviewRequest = 0;
 
 async function loadPackageImage(key) {
   if (packageImageCache[key]) return packageImageCache[key];
-  const files = PACKAGE_IMAGE_PARTS[key];
-  if (!files) throw new Error('Unknown package: ' + key);
+  const src = PACKAGE_IMAGES[key];
+  if (!src) throw new Error('Unknown package: ' + key);
 
-  const parts = await Promise.all(files.map(async path => {
-    const response = await fetch(path + '?v=13');
-    if (!response.ok) throw new Error('Failed to load ' + path);
-    return (await response.text()).trim();
-  }));
-
-  const src = 'data:image/webp;base64,' + parts.join('');
-  packageImageCache[key] = src;
-  return src;
+  packageImageCache[key] = new Promise((resolve, reject) => {
+    const preloader = new Image();
+    preloader.onload = () => resolve(src);
+    preloader.onerror = () => reject(new Error('Failed to load ' + src));
+    preloader.src = src;
+  });
+  return packageImageCache[key];
 }
 
 async function showPackagePreview(key) {
   const image = document.getElementById('variantImage');
   const panel = document.querySelector('.variant-panel');
-  if (!image || !panel || !PACKAGE_IMAGE_PARTS[key]) return;
+  if (!image || !panel || !PACKAGE_IMAGES[key]) return;
 
   const requestId = ++packagePreviewRequest;
   panel.classList.add('avs-showcase');
@@ -75,16 +52,17 @@ async function showPackagePreview(key) {
 
 const showcaseStyle = document.createElement('style');
 showcaseStyle.textContent = `
-  .variant-panel.avs-showcase{display:block;background:#f8f2e8;border-radius:28px;overflow:hidden}
-  .variant-panel.avs-showcase .variant-photo{height:auto;aspect-ratio:16/9;background:#eee5d7;overflow:hidden}
-  .variant-panel.avs-showcase .variant-photo img{width:100%;height:100%;object-fit:contain;display:block;background:#f8f2e8;transition:opacity .18s ease}
+  .variant-tabs{width:100%;margin-left:auto;margin-right:auto}
+  .variant-panel.avs-showcase{display:block;width:100%;margin-left:auto;margin-right:auto;background:#f8f2e8;border-radius:28px;overflow:hidden}
+  .variant-panel.avs-showcase .variant-photo{height:auto;aspect-ratio:1672/941;background:#eee5d7;overflow:hidden;display:grid;place-items:center}
+  .variant-panel.avs-showcase .variant-photo img{width:100%;height:100%;object-fit:contain;display:block;background:#f8f2e8;transition:opacity .18s ease;image-rendering:auto}
   .variant-panel.avs-showcase .variant-photo img.is-loading{opacity:.42}
   .variant-panel.avs-showcase .variant-copy{padding:16px 22px 18px;display:flex;align-items:center;justify-content:flex-end;min-height:68px;background:#fffaf2}
   .variant-panel.avs-showcase .variant-copy > *:not(.variant-cta){display:none!important}
   .variant-panel.avs-showcase .variant-cta{margin:0;align-self:auto}
   @media(max-width:720px){
     .variant-panel.avs-showcase{border-radius:20px}
-    .variant-panel.avs-showcase .variant-photo{aspect-ratio:16/9}
+    .variant-panel.avs-showcase .variant-photo{aspect-ratio:1672/941}
     .variant-panel.avs-showcase .variant-copy{padding:12px}
     .variant-panel.avs-showcase .variant-cta{width:100%;text-align:center}
   }

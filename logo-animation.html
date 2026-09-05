@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f0e6" />
+  <meta name="description" content="Демонстрация сборки фирменного логотипа AVS." />
+  <title>AVS — анимация логотипа</title>
+  <style>
+    :root {
+      --ink: #111710;
+      --panel: #1c211d;
+      --paper: #f6f0e6;
+      --paper-deep: #eee5d7;
+      --line: #ded2c0;
+      --brand-gold: #cc8652;
+      --brand-ivory: #f6f2ea;
+      --build-gold: #a97955;
+      --build-ivory: #c8cbc3;
+    }
+
+    @property --build-gold {
+      syntax: "<color>";
+      inherits: true;
+      initial-value: #a97955;
+    }
+
+    @property --build-ivory {
+      syntax: "<color>";
+      inherits: true;
+      initial-value: #c8cbc3;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      min-height: 100%;
+      background: var(--paper);
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Georgia, Cambria, "Times New Roman", serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .intro {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding:
+        max(28px, env(safe-area-inset-top))
+        max(24px, env(safe-area-inset-right))
+        max(28px, env(safe-area-inset-bottom))
+        max(24px, env(safe-area-inset-left));
+      overflow: hidden;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 43%, rgba(255, 253, 248, .98) 0 20%, rgba(255, 253, 248, .45) 52%, transparent 74%),
+        linear-gradient(145deg, #faf6ef 0%, var(--paper) 48%, var(--paper-deep) 120%);
+    }
+
+    .intro::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+      content: "";
+      opacity: .025;
+      pointer-events: none;
+    }
+
+    .identity {
+      width: min(680px, 78vw);
+      transform: translateY(-1.5vh);
+      text-align: center;
+    }
+
+    .mark {
+      width: 100%;
+      margin-inline: auto;
+      filter: drop-shadow(0 22px 34px rgba(54, 44, 25, .16));
+    }
+
+    .mark__svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      border-radius: 3px;
+    }
+
+    .logo-field {
+      fill: var(--panel);
+    }
+
+    .build-gold {
+      fill: var(--build-gold);
+    }
+
+    .build-ivory {
+      fill: var(--build-ivory);
+    }
+
+    .brand-gold {
+      fill: var(--brand-gold);
+    }
+
+    .brand-ivory {
+      fill: var(--brand-ivory);
+    }
+
+    .assembly-layer,
+    .final-logo,
+    .piece {
+      transform-box: view-box;
+    }
+
+    .piece {
+      transform-origin: center;
+    }
+
+    .final-logo {
+      display: none;
+      opacity: 1;
+    }
+
+    .a-leg,
+    .a-ladder-rail,
+    .a-step,
+    .v-leg,
+    .v-hinge {
+      opacity: 0;
+    }
+
+    .a-ladder-rail {
+      transform-origin: 231px 216px;
+    }
+
+    .a-step {
+      transform-origin: right center;
+    }
+
+    .v-leg {
+      transform-origin: 430px 282px;
+    }
+
+    .v-hinge {
+      transform-box: view-box;
+      transform-origin: 430px 281px;
+    }
+
+    .v-hinge__ring {
+      fill: var(--panel);
+      stroke: var(--build-gold);
+      stroke-width: 4;
+    }
+
+    .v-hinge__pin {
+      fill: var(--build-ivory);
+    }
+
+    .s-reveal-stroke {
+      fill: none;
+      stroke: #fff;
+      stroke-linecap: butt;
+      stroke-linejoin: round;
+      stroke-width: 50;
+    }
+
+    .roller {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .roller__paint {
+      fill: var(--brand-ivory);
+    }
+
+    .roller__edge {
+      fill: none;
+      stroke: rgba(246, 242, 234, .52);
+      stroke-width: 2;
+    }
+
+    .roller__arm {
+      fill: none;
+      stroke: #81877d;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 6;
+    }
+
+    .roller__handle {
+      fill: var(--brand-ivory);
+      stroke: var(--panel);
+      stroke-width: 2;
+    }
+
+    .identity__copy {
+      margin-top: clamp(18px, 2.5vw, 28px);
+    }
+
+    .identity__copy p {
+      margin: 0;
+    }
+
+    .identity__title {
+      color: var(--panel);
+      font-size: clamp(20px, 2.35vw, 31px);
+      letter-spacing: .025em;
+      line-height: 1.25;
+      opacity: 0;
+      transform: translateY(9px);
+    }
+
+    .identity__location {
+      margin-top: 8px !important;
+      color: #756b5d;
+      font-size: clamp(12px, 1.15vw, 15px);
+      letter-spacing: .24em;
+      opacity: 0;
+      text-transform: uppercase;
+      transform: translateY(7px);
+    }
+
+    .identity__services {
+      margin-top: 18px !important;
+      color: #8b806f;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(9px, .9vw, 11px);
+      font-weight: 500;
+      letter-spacing: .2em;
+      opacity: 0;
+      text-transform: uppercase;
+      transform: translateY(6px);
+    }
+
+    .identity__services span {
+      color: var(--brand-gold);
+      margin-inline: .4em;
+    }
+
+    .blueprint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(730px, 82vw);
+      aspect-ratio: 84 / 36;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -58%);
+    }
+
+    .blueprint__line,
+    .blueprint__measure {
+      position: absolute;
+      display: block;
+    }
+
+    .blueprint__line {
+      background: rgba(155, 93, 11, .13);
+    }
+
+    .blueprint__line--horizontal {
+      top: 50%;
+      right: -4%;
+      left: -4%;
+      height: 1px;
+    }
+
+    .blueprint__line--vertical {
+      top: -10%;
+      bottom: -10%;
+      left: 50%;
+      width: 1px;
+    }
+
+    .blueprint__measure {
+      border-color: rgba(155, 93, 11, .17);
+      border-style: solid;
+    }
+
+    .blueprint__measure--top {
+      top: 5%;
+      right: 0;
+      left: 0;
+      height: 7px;
+      border-width: 1px 1px 0;
+    }
+
+    .blueprint__measure--side {
+      top: 0;
+      right: 4%;
+      bottom: 0;
+      width: 7px;
+      border-width: 1px 0 1px 1px;
+    }
+
+    .replay {
+      position: absolute;
+      right: max(24px, env(safe-area-inset-right));
+      bottom: max(24px, env(safe-area-inset-bottom));
+      display: flex;
+      min-height: 44px;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 13px;
+      border: 1px solid rgba(111, 96, 74, .25);
+      border-radius: 999px;
+      color: #51493e;
+      background: rgba(255, 253, 250, .72);
+      box-shadow: 0 8px 28px rgba(54, 44, 25, .06);
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      letter-spacing: .02em;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
+    }
+
+    .replay:hover {
+      border-color: rgba(204, 134, 82, .65);
+      background: rgba(255, 253, 250, .95);
+    }
+
+    .replay:active {
+      transform: scale(.98);
+    }
+
+    .replay:focus-visible {
+      outline: 2px solid var(--brand-gold);
+      outline-offset: 3px;
+    }
+
+    .replay svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.7;
+    }
+
+    .replay kbd {
+      display: grid;
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(111, 96, 74, .24);
+      border-radius: 50%;
+      place-items: center;
+      color: #7a7062;
+      background: rgba(246, 240, 230, .8);
+      font: 10px/1 Arial, sans-serif;
+    }
+
+    .motion-note,
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .is-running .logo-field {
+      animation: field-in .35s ease-out both;
+    }
+
+    .is-running .blueprint {
+      animation: blueprint-in 3.08s ease both;
+    }
+
+    .is-running .a-leg--left {
+      animation: a-left-set .55s cubic-bezier(.2, .72, .22, 1) .15s both;
+    }
+
+    .is-running .a-leg--right {
+      animation: a-right-set .58s cubic-bezier(.2, .72, .22, 1) .2s both;
+    }
+
+    .is-running .a-ladder-rail {
+      animation: rail-set .22s cubic-bezier(.22, .72, .28, 1) .58s both;
+    }
+
+    .is-running .a-step--one {
+      animation: step-set .18s cubic-bezier(.2, .72, .25, 1) .72s both;
+    }
+
+    .is-running .a-step--two {
+      animation: step-set .18s cubic-bezier(.2, .72, .25, 1) .86s both;
+    }
+
+    .is-running .a-step--three {
+      animation: step-set .18s cubic-bezier(.2, .72, .25, 1) 1s both;
+    }
+
+    .is-running .v-leg--left {
+      animation: v-open-left .8s cubic-bezier(.3, .68, .24, 1) .65s both;
+    }
+
+    .is-running .v-leg--right {
+      animation: v-open-right .8s cubic-bezier(.3, .68, .24, 1) .65s both;
+    }
+
+    .is-running .v-hinge {
+      animation: hinge-in 1.03s ease-in-out .58s both;
+    }
+
+    .is-running .assembly-layer {
+      animation: settle-palette .16s cubic-bezier(.22, .61, .36, 1) 2.9s both;
+    }
+
+    .is-running .identity__title {
+      animation: copy-in .38s ease-out 3.2s both;
+    }
+
+    .is-running .identity__location {
+      animation: copy-in .34s ease-out 3.3s both;
+    }
+
+    .is-running .identity__services {
+      animation: copy-in .3s ease-out 3.4s both;
+    }
+
+    @keyframes field-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes blueprint-in {
+      0% { opacity: 0; }
+      8% { opacity: 1; }
+      78% { opacity: .58; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes a-left-set {
+      0% { opacity: 0; transform: translate(-82px, 94px); }
+      12% { opacity: 1; }
+      86% { opacity: 1; transform: translate(2px, -2px); }
+      100% { opacity: 1; transform: none; }
+    }
+
+    @keyframes a-right-set {
+      0% { opacity: 0; transform: translate(78px, -92px); }
+      12% { opacity: 1; }
+      86% { opacity: 1; transform: translate(-2px, 2px); }
+      100% { opacity: 1; transform: none; }
+    }
+
+    @keyframes rail-set {
+      0% { opacity: 0; transform: scaleY(.12); }
+      30% { opacity: 1; }
+      100% { opacity: 1; transform: scaleY(1); }
+    }
+
+    @keyframes step-set {
+      0% { opacity: 0; transform: scaleX(.06); }
+      22% { opacity: 1; }
+      85% { opacity: 1; transform: scaleX(1.025); }
+      100% { opacity: 1; transform: none; }
+    }
+
+    @keyframes v-open-left {
+      0% { opacity: 0; transform: rotate(28deg); }
+      10% { opacity: 1; }
+      86% { opacity: 1; transform: rotate(-.8deg); }
+      100% { opacity: 1; transform: rotate(0); }
+    }
+
+    @keyframes v-open-right {
+      0% { opacity: 0; transform: rotate(-28deg); }
+      10% { opacity: 1; }
+      86% { opacity: 1; transform: rotate(.8deg); }
+      100% { opacity: 1; transform: rotate(0); }
+    }
+
+    @keyframes hinge-in {
+      0% { opacity: 0; transform: scale(.65); transform-origin: 430px 282px; }
+      12% { opacity: 1; transform: scale(1); }
+      82% { opacity: .92; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes settle-palette {
+      from {
+        --build-gold: #a97955;
+        --build-ivory: #c8cbc3;
+      }
+      to {
+        --build-gold: #cc8652;
+        --build-ivory: #f6f2ea;
+      }
+    }
+
+    @keyframes copy-in {
+      to { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 680px) {
+      .intro {
+        padding-inline: 18px;
+      }
+
+      .identity {
+        width: min(92vw, 560px);
+        transform: translateY(-3vh);
+      }
+
+      .identity__copy {
+        margin-top: 16px;
+      }
+
+      .identity__services {
+        margin-top: 15px !important;
+        letter-spacing: .12em;
+      }
+
+      .blueprint {
+        width: 96vw;
+      }
+
+      .replay {
+        right: 50%;
+        bottom: max(18px, env(safe-area-inset-bottom));
+        transform: translateX(50%);
+      }
+
+      .replay:active {
+        transform: translateX(50%) scale(.98);
+      }
+
+      .replay kbd {
+        display: none;
+      }
+    }
+
+    @media (max-height: 560px) and (orientation: landscape) {
+      .identity {
+        width: min(63vw, 610px);
+        transform: translateY(-2vh);
+      }
+
+      .identity__copy {
+        margin-top: 12px;
+      }
+
+      .identity__services {
+        display: none;
+      }
+
+      .replay {
+        right: max(18px, env(safe-area-inset-right));
+        bottom: max(14px, env(safe-area-inset-bottom));
+        transform: none;
+      }
+
+      .replay:active {
+        transform: scale(.98);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .blueprint,
+      .assembly-layer,
+      .roller {
+        display: none;
+      }
+
+      .logo-field,
+      .final-logo,
+      .identity__title,
+      .identity__location,
+      .identity__services {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+      }
+
+      .final-logo {
+        display: block;
+      }
+
+      .replay {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="intro" aria-labelledby="intro-title">
+    <div class="blueprint" aria-hidden="true">
+      <span class="blueprint__line blueprint__line--horizontal"></span>
+      <span class="blueprint__line blueprint__line--vertical"></span>
+      <span class="blueprint__measure blueprint__measure--top"></span>
+      <span class="blueprint__measure blueprint__measure--side"></span>
+    </div>
+
+    <section class="identity">
+      <h1 id="intro-title" class="visually-hidden">AVS — студия дизайна и ремонта</h1>
+
+      <div class="mark" aria-hidden="true">
+        <svg class="mark__svg" viewBox="0 0 840 360" role="img" aria-label="AVS">
+          <defs>
+            <!-- Векторные формы восстановлены по assets/logo.png (84 × 36). -->
+            <path id="shape-a-left" d="M170 60h43L90 285H48Z" />
+            <path id="shape-a-right" d="M218 60h43l111 225h-45Z" />
+            <path id="shape-a-rail" d="M218 145h25v140h-25Z" />
+            <path id="shape-a-step-1" d="M169 146h74v17h-74Z" />
+            <path id="shape-a-step-2" d="M139 197h104v17H139Z" />
+            <path id="shape-a-step-3" d="M69 247h174v17H69Z" />
+            <path id="shape-v-left" d="M285 60h46l120 225h-46Z" />
+            <path id="shape-v-right" d="M529 60h47L455 285h-50Z" />
+            <path id="shape-s-body" d="M620 60h160v42H610c-27 0-41 12-41 30 0 20 16 31 43 31h126c50 0 77 25 77 65 0 25-11 43-33 54l-41-25c14-5 21-14 21-27 0-20-15-31-43-31H612c-48 0-70-25-70-66 0-45 27-73 78-73Z" />
+            <path id="shape-s-base" d="M761 244c28 0 43-12 43-34h12v27c0 32-21 48-60 48H480v-27h267c6 0 11-5 14-14Z" />
+            <path id="paint-route" d="M785 80C715 78 636 77 603 82c-31 5-48 21-48 49 0 31 24 49 61 49h120c38 0 62 18 62 47 0 28-24 44-63 44H487" />
+
+            <mask id="s-reveal-mask" maskUnits="userSpaceOnUse" x="470" y="35" width="365" height="275" style="mask-type: alpha">
+              <path class="s-reveal-stroke" />
+            </mask>
+
+            <filter id="panel-shadow" x="-10%" y="-18%" width="120%" height="150%">
+              <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#050705" flood-opacity=".22" />
+            </filter>
+          </defs>
+
+          <rect class="logo-field" width="840" height="360" rx="4" />
+
+          <g class="assembly-layer" filter="url(#panel-shadow)">
+            <g class="assembly-a">
+              <use class="piece build-gold a-leg a-leg--left" href="#shape-a-left" />
+              <use class="piece build-ivory a-leg a-leg--right" href="#shape-a-right" />
+              <use class="piece build-gold a-ladder-rail" href="#shape-a-rail" />
+              <use class="piece build-gold a-step a-step--one" href="#shape-a-step-1" />
+              <use class="piece build-gold a-step a-step--two" href="#shape-a-step-2" />
+              <use class="piece build-gold a-step a-step--three" href="#shape-a-step-3" />
+            </g>
+
+            <g class="assembly-v">
+              <g class="v-hinge">
+                <circle class="v-hinge__ring" cx="430" cy="281" r="10" />
+                <circle class="v-hinge__pin" cx="430" cy="281" r="3.2" />
+              </g>
+              <use class="piece build-ivory v-leg v-leg--left" href="#shape-v-left" />
+              <use class="piece build-ivory v-leg v-leg--right" href="#shape-v-right" />
+            </g>
+
+            <g class="s-build" mask="url(#s-reveal-mask)">
+              <use class="build-ivory" href="#shape-s-body" />
+              <use class="build-gold" href="#shape-s-base" />
+            </g>
+          </g>
+
+          <g class="final-logo" filter="url(#panel-shadow)">
+            <use class="brand-gold" href="#shape-a-left" />
+            <use class="brand-ivory" href="#shape-a-right" />
+            <use class="brand-gold" href="#shape-a-rail" />
+            <use class="brand-gold" href="#shape-a-step-1" />
+            <use class="brand-gold" href="#shape-a-step-2" />
+            <use class="brand-gold" href="#shape-a-step-3" />
+            <use class="brand-ivory" href="#shape-v-left" />
+            <use class="brand-ivory" href="#shape-v-right" />
+            <use class="brand-ivory" href="#shape-s-body" />
+            <use class="brand-gold" href="#shape-s-base" />
+          </g>
+
+          <g class="roller" aria-hidden="true">
+            <g class="roller__tool" transform="scale(.88)">
+              <rect class="roller__paint" x="-34" y="-10" width="68" height="20" rx="7" />
+              <path class="roller__edge" d="M-25-10h50M-25 10h50" />
+              <path class="roller__arm" d="M34 0h22v30H42v20" />
+              <rect class="roller__handle" x="34" y="47" width="17" height="48" rx="8.5" />
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="identity__copy">
+        <p class="identity__title">Студия дизайна и ремонта</p>
+        <p class="identity__location">Краснодар</p>
+        <p class="identity__services">Интерьеры <span>•</span> Ремонт <span>•</span> Комплектация</p>
+      </div>
+    </section>
+
+    <button class="replay" type="button" aria-label="Повторить анимацию логотипа">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7" /></svg>
+      <span>Повторить анимацию</span>
+      <kbd>R</kbd>
+    </button>
+
+    <p class="motion-note" role="status" aria-live="polite"></p>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const root = document.documentElement;
+      const replayButton = document.querySelector(".replay");
+      const status = document.querySelector(".motion-note");
+      const route = document.querySelector("#paint-route");
+      const revealStroke = document.querySelector(".s-reveal-stroke");
+      const sBuild = document.querySelector(".s-build");
+      const roller = document.querySelector(".roller");
+      const rollerPaint = document.querySelector(".roller__paint");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const S_START = 1350;
+      const S_DURATION = 1550;
+      const TOTAL_DURATION = 3800;
+      const ROLLER_LAG = 2.5;
+      const IVORY = [246, 242, 234];
+      const GOLD = [204, 134, 82];
+      const ROUTE_SAMPLES = 220;
+      let routeLength = 0;
+      let routePoints = [];
+      let fullRevealPath = "";
+      let animationFrame = 0;
+      let announceTimer = 0;
+      let runCount = 0;
+
+      const gentlyLinear = (value) =>
+        value - Math.sin(value * Math.PI * 2) / (16 * Math.PI);
+
+      const smoothstep = (start, end, value) => {
+        const normalized = Math.min(1, Math.max(0, (value - start) / (end - start)));
+        return normalized * normalized * (3 - 2 * normalized);
+      };
+
+      const mixColor = (from, to, amount) => {
+        const channels = from.map((channel, index) =>
+          Math.round(channel + (to[index] - channel) * amount)
+        );
+        return `rgb(${channels.join(", ")})`;
+      };
+
+      const prepareRoute = () => {
+        routeLength = route.getTotalLength();
+        routePoints = Array.from({ length: ROUTE_SAMPLES + 1 }, (_, index) => {
+          const point = route.getPointAtLength(routeLength * index / ROUTE_SAMPLES);
+          return [point.x, point.y];
+        });
+        fullRevealPath = routePoints
+          .map(([x, y], index) => `${index === 0 ? "M" : "L"}${x.toFixed(2)} ${y.toFixed(2)}`)
+          .join("");
+      };
+
+      const revealRouteTo = (distance) => {
+        if (distance <= 0) {
+          revealStroke.setAttribute("d", "");
+          sBuild.style.opacity = "0";
+          return;
+        }
+
+        if (distance >= routeLength) {
+          revealStroke.setAttribute("d", fullRevealPath);
+          sBuild.style.opacity = "1";
+          return;
+        }
+
+        const lastSample = Math.floor(distance / routeLength * ROUTE_SAMPLES);
+        const passedPoints = routePoints.slice(0, lastSample + 1);
+        const edge = route.getPointAtLength(distance);
+        const pathData = passedPoints
+          .map(([x, y], index) => `${index === 0 ? "M" : "L"}${x.toFixed(2)} ${y.toFixed(2)}`)
+          .concat(`L${edge.x.toFixed(2)} ${edge.y.toFixed(2)}`)
+          .join("");
+
+        revealStroke.setAttribute("d", pathData);
+        sBuild.style.opacity = "1";
+      };
+
+      const setPaintProgress = (progress) => {
+        const clamped = Math.min(1, Math.max(0, progress));
+        const distance = clamped * routeLength;
+        const settlingLag = ROLLER_LAG * (1 - smoothstep(.88, 1, clamped));
+        const revealDistance = Math.max(0, distance - settlingLag);
+
+        revealRouteTo(revealDistance);
+
+        if (clamped <= 0 || clamped >= 1) {
+          rollerPaint.style.fill = clamped >= 1
+            ? mixColor(IVORY, GOLD, 1)
+            : mixColor(IVORY, GOLD, 0);
+          roller.style.opacity = "0";
+          return;
+        }
+
+        const point = route.getPointAtLength(distance);
+        const delta = Math.min(2.5, routeLength / 100);
+        const before = route.getPointAtLength(Math.max(0, distance - delta));
+        const after = route.getPointAtLength(Math.min(routeLength, distance + delta));
+        const angle = Math.atan2(after.y - before.y, after.x - before.x) * 180 / Math.PI;
+        const goldAmount = smoothstep(.62, .70, clamped);
+
+        roller.setAttribute(
+          "transform",
+          `translate(${point.x.toFixed(2)} ${point.y.toFixed(2)}) rotate(${(angle + 90).toFixed(2)})`
+        );
+        rollerPaint.style.fill = mixColor(IVORY, GOLD, goldAmount);
+        roller.style.opacity = String(Math.min(1, clamped * 12, (1 - clamped) * 12));
+      };
+
+      const play = () => {
+        window.cancelAnimationFrame(animationFrame);
+        window.clearTimeout(announceTimer);
+
+        if (reducedMotion.matches) {
+          root.classList.remove("is-running");
+          setPaintProgress(1);
+          status.textContent = "Логотип AVS показан без анимации.";
+          return;
+        }
+
+        prepareRoute();
+        setPaintProgress(0);
+        root.classList.remove("is-running");
+        void root.offsetWidth;
+        root.classList.add("is-running");
+        runCount += 1;
+        root.dataset.animationRuns = String(runCount);
+        status.textContent = "Анимация логотипа запущена.";
+
+        const startTime = performance.now();
+
+        const tick = (now) => {
+          const elapsed = now - startTime;
+
+          if (elapsed < S_START) {
+            setPaintProgress(0);
+          } else if (elapsed < S_START + S_DURATION) {
+            const rawProgress = (elapsed - S_START) / S_DURATION;
+            setPaintProgress(gentlyLinear(rawProgress));
+          } else {
+            setPaintProgress(1);
+          }
+
+          if (elapsed < TOTAL_DURATION) {
+            animationFrame = window.requestAnimationFrame(tick);
+          }
+        };
+
+        animationFrame = window.requestAnimationFrame(tick);
+        announceTimer = window.setTimeout(() => {
+          status.textContent = "Анимация логотипа завершена.";
+        }, TOTAL_DURATION);
+      };
+
+      replayButton.addEventListener("click", play);
+
+      document.addEventListener("keydown", (event) => {
+        const element = event.target;
+        const isTyping = element instanceof HTMLElement &&
+          (element.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(element.tagName));
+
+        if (isTyping || event.repeat) return;
+
+        if (event.code === "Space" || event.key.toLowerCase() === "r") {
+          event.preventDefault();
+          play();
+        }
+      });
+
+      const handleMotionPreference = () => play();
+
+      if (typeof reducedMotion.addEventListener === "function") {
+        reducedMotion.addEventListener("change", handleMotionPreference);
+      } else {
+        reducedMotion.addListener(handleMotionPreference);
+      }
+
+      prepareRoute();
+      play();
+    })();
+  </script>
+</body>
+</html>

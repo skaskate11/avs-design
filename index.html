@@ -11,7 +11,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://avs-design.ru/" />
   <link rel="icon" href="assets/logo.png" type="image/png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=15" />
   <style>
     .contact-channels{background:#f8f2e8;border-top:1px solid #ded2c0;padding:54px 0 58px}
     .contact-channels__inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.95fr);gap:54px;align-items:center}
@@ -28,6 +28,102 @@
   </style>
 </head>
 <body>
+  <section class="logo-intro" id="top" aria-labelledby="logo-intro-title">
+    <div class="blueprint" aria-hidden="true">
+      <span class="blueprint__line blueprint__line--horizontal"></span>
+      <span class="blueprint__line blueprint__line--vertical"></span>
+      <span class="blueprint__measure blueprint__measure--top"></span>
+      <span class="blueprint__measure blueprint__measure--side"></span>
+    </div>
+
+    <div class="identity">
+      <h1 id="logo-intro-title" class="visually-hidden">AVS — студия дизайна и ремонта</h1>
+
+      <div class="mark" aria-hidden="true">
+        <svg class="mark__svg" viewBox="0 0 840 360" role="img" aria-label="AVS">
+          <defs>
+            <path id="shape-a-left" d="M170 60h43L90 285H48Z" />
+            <path id="shape-a-right" d="M218 60h43l111 225h-45Z" />
+            <path id="shape-a-rail" d="M218 145h25v140h-25Z" />
+            <path id="shape-a-step-1" d="M169 146h74v17h-74Z" />
+            <path id="shape-a-step-2" d="M139 197h104v17H139Z" />
+            <path id="shape-a-step-3" d="M69 247h174v17H69Z" />
+            <path id="shape-v-left" d="M285 60h46l120 225h-46Z" />
+            <path id="shape-v-right" d="M529 60h47L455 285h-50Z" />
+            <path id="shape-s-body" d="M620 60h160v42H610c-27 0-41 12-41 30 0 20 16 31 43 31h126c50 0 77 25 77 65 0 25-11 43-33 54l-41-25c14-5 21-14 21-27 0-20-15-31-43-31H612c-48 0-70-25-70-66 0-45 27-73 78-73Z" />
+            <path id="shape-s-base" d="M761 244c28 0 43-12 43-34h12v27c0 32-21 48-60 48H480v-27h267c6 0 11-5 14-14Z" />
+            <path id="paint-route" d="M785 80C715 78 636 77 603 82c-31 5-48 21-48 49 0 31 24 49 61 49h120c38 0 62 18 62 47 0 28-24 44-63 44H487" />
+
+            <mask id="s-reveal-mask" maskUnits="userSpaceOnUse" x="470" y="35" width="365" height="275" style="mask-type:alpha">
+              <path class="s-reveal-stroke" />
+            </mask>
+
+            <filter id="panel-shadow" x="-10%" y="-18%" width="120%" height="150%">
+              <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#050705" flood-opacity=".22" />
+            </filter>
+          </defs>
+
+          <rect class="logo-field" width="840" height="360" rx="4" />
+
+          <g class="assembly-layer" filter="url(#panel-shadow)">
+            <g class="assembly-a">
+              <use class="piece build-gold a-leg a-leg--left" href="#shape-a-left" />
+              <use class="piece build-ivory a-leg a-leg--right" href="#shape-a-right" />
+              <use class="piece build-gold a-ladder-rail" href="#shape-a-rail" />
+              <use class="piece build-gold a-step a-step--one" href="#shape-a-step-1" />
+              <use class="piece build-gold a-step a-step--two" href="#shape-a-step-2" />
+              <use class="piece build-gold a-step a-step--three" href="#shape-a-step-3" />
+            </g>
+
+            <g class="assembly-v">
+              <g class="v-hinge">
+                <circle class="v-hinge__ring" cx="430" cy="281" r="10" />
+                <circle class="v-hinge__pin" cx="430" cy="281" r="3.2" />
+              </g>
+              <use class="piece build-ivory v-leg v-leg--left" href="#shape-v-left" />
+              <use class="piece build-ivory v-leg v-leg--right" href="#shape-v-right" />
+            </g>
+
+            <g class="s-build" mask="url(#s-reveal-mask)">
+              <use class="build-ivory" href="#shape-s-body" />
+              <use class="build-gold" href="#shape-s-base" />
+            </g>
+          </g>
+
+          <g class="final-logo" filter="url(#panel-shadow)">
+            <use class="brand-gold" href="#shape-a-left" />
+            <use class="brand-ivory" href="#shape-a-right" />
+            <use class="brand-gold" href="#shape-a-rail" />
+            <use class="brand-gold" href="#shape-a-step-1" />
+            <use class="brand-gold" href="#shape-a-step-2" />
+            <use class="brand-gold" href="#shape-a-step-3" />
+            <use class="brand-ivory" href="#shape-v-left" />
+            <use class="brand-ivory" href="#shape-v-right" />
+            <use class="brand-ivory" href="#shape-s-body" />
+            <use class="brand-gold" href="#shape-s-base" />
+          </g>
+
+          <g class="roller" aria-hidden="true">
+            <g class="roller__tool" transform="scale(.88)">
+              <rect class="roller__paint" x="-34" y="-10" width="68" height="20" rx="7" />
+              <path class="roller__edge" d="M-25-10h50M-25 10h50" />
+              <path class="roller__arm" d="M34 0h22v30H42v20" />
+              <rect class="roller__handle" x="34" y="47" width="17" height="48" rx="8.5" />
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="identity__copy">
+        <p class="identity__title">Студия дизайна и ремонта</p>
+        <p class="identity__location">Краснодар</p>
+        <p class="identity__services">Интерьеры <span>•</span> Ремонт <span>•</span> Комплектация</p>
+      </div>
+    </div>
+
+    <p class="motion-note" role="status" aria-live="polite"></p>
+  </section>
+
   <header class="topbar">
     <div class="topbar__inner wrap">
       <a class="brand" href="#top" aria-label="AVS — студия дизайна и ремонта">
@@ -43,7 +139,7 @@
     </div>
   </header>
 
-  <main id="top">
+  <main id="site-content">
     <section class="hero section">
       <div class="wrap">
         <div class="hero__head">
@@ -208,6 +304,7 @@
     </div>
   </dialog>
 
-  <script src="app.js"></script>
+  <script src="logo-intro.js?v=1"></script>
+  <script src="app.js?v=14"></script>
 </body>
 </html>
